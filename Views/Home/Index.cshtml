@@ -1,6 +1,6 @@
-﻿
+﻿@model LojaVirtual.Models.NewsletterEmail
 @{
- 
+
     ViewData["Title"] = "Index";
 }
 
@@ -161,3 +161,47 @@
     </div>
 </main>
 
+@using (Html.BeginForm(null, null, null, FormMethod.Post, false, new { @action=@Url.Action("index","home")+"#formulario"}))
+{
+
+    <div class="container" id="formulario">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-2">
+                @if (TempData["MSG_S"] != null)
+                {
+                    <p class="alert alert-success">@TempData["MSG_S"]</p>
+                }
+                @if (TempData["MSG_E"] != null)
+                {
+                    <p class="alert alert-danger">@TempData["MSG_E"]</p>
+                }
+            </div>
+        </div>
+        <div class="row">
+           
+
+            <div class="col-sm-6 offset-sm-2">
+                <div class="form-group">
+                    <label for="nome">Cadastre seu e-mail para receber promoções:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                        </div>
+                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div> <!-- input-group.// -->
+
+                    <span style="color:red;">@Html.ValidationMessageFor(m => m.Email)</span>
+                </div> <!-- form-group.// -->
+
+            </div>
+            <div class="col-sm-2">
+                <br />
+                <button class="subscribe btn btn-primary btn-block" type="submit" style="margin-top:7px;"> cadastrar </button>
+            </div>
+
+
+        </div>
+    </div>
+
+}
