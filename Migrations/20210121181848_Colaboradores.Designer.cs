@@ -4,43 +4,22 @@ using LojaVirtual.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LojaVirtual.Migrations
 {
     [DbContext(typeof(LojaVirtualContext))]
-    partial class LojaVirtualContextModelSnapshot : ModelSnapshot
+    [Migration("20210121181848_Colaboradores")]
+    partial class Colaboradores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
-
-            modelBuilder.Entity("LojaVirtual.Models.Categoria", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("CartegoriaPaiId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Slug")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartegoriaPaiId");
-
-                    b.ToTable("TAB_categorias");
-                });
 
             modelBuilder.Entity("LojaVirtual.Models.Cliente", b =>
                 {
@@ -94,9 +73,6 @@ namespace LojaVirtual.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Senha")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Tipo")
                         .HasColumnType("nvarchar(max)");
 
@@ -119,15 +95,6 @@ namespace LojaVirtual.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TAB_NewLetterEmails");
-                });
-
-            modelBuilder.Entity("LojaVirtual.Models.Categoria", b =>
-                {
-                    b.HasOne("LojaVirtual.Models.Categoria", "CategoriaPai")
-                        .WithMany()
-                        .HasForeignKey("CartegoriaPaiId");
-
-                    b.Navigation("CategoriaPai");
                 });
 #pragma warning restore 612, 618
         }

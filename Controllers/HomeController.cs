@@ -12,6 +12,7 @@ using LojaVirtual.DataBase;
 using LojaVirtual.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using LojaVirtual.Libraries.Login;
+using LojaVirtual.Libraries.Filtro;
 
 namespace LojaVirtual.Controllers
 {
@@ -20,12 +21,14 @@ namespace LojaVirtual.Controllers
         private IClienteRepository _ClienteRepository;
         private INewsletterRepository _newsletterRepository;
         private LoginCliente _loginCliente;
+        private GerenciarEmail _gerenciarEmail;
 
-        public HomeController(IClienteRepository repository,INewsletterRepository newletter, LoginCliente logincliente)
+        public HomeController(IClienteRepository repository,INewsletterRepository newletter, LoginCliente logincliente,GerenciarEmail gerenciarEmail)
         {
             _ClienteRepository = repository;
             _newsletterRepository = newletter;
             _loginCliente = logincliente;
+            _gerenciarEmail = gerenciarEmail;
 
 
         }
@@ -82,7 +85,7 @@ namespace LojaVirtual.Controllers
                 
 
                 if (isValid) {
-                    ContatoEmail.EnviarContatoPorEmail(contato);
+                    _gerenciarEmail.EnviarContatoPorEmail(contato);
                     ViewData["MSG_S"] = "Mensagem de contato enviado com sucesso!";
                 }
                 else
@@ -129,17 +132,10 @@ namespace LojaVirtual.Controllers
           
         }
         [HttpGet]
+        [ClienteAutorizacaoAttribute]
         public IActionResult Painel()
         {
-            Cliente cliente = _loginCliente.GetClient();
-            if (cliente!=null)
-            {
-                return new ContentResult() { Content = "Usuário " + cliente.Id + ", Nome: "+cliente.Nome+" Logado" };
-            }
-            else
-            {
-                return new ContentResult() { Content = "Deu Ruim" };
-            }
+            return new ContentResult() { Content = "Esse é o painel do Cliente" };
         }
 
 

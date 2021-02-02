@@ -14,6 +14,8 @@ namespace LojaVirtual.DataBase
         }
         public DbSet<Cliente> TAB_Clientes { get; set; }
         public DbSet<NewsletterEmail> TAB_NewLetterEmails { get; set; }
+        public DbSet<Colaborador> TAB_Colaboradores { get; set; }
+        public DbSet<Categoria> TAB_categorias { get; set; }
 
 
     }

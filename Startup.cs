@@ -14,6 +14,9 @@ using LojaVirtual.Repositories.Interfaces;
 using LojaVirtual.Repositories;
 using LojaVirtual.Libraries.Sessao;
 using LojaVirtual.Libraries.Login;
+using System.Net.Mail;
+using System.Net;
+using LojaVirtual.Libraries.Email;
 
 namespace LojaVirtual
 {
@@ -32,17 +35,41 @@ namespace LojaVirtual
             services.AddHttpContextAccessor();
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
+            services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+
+
+            //SMTP
+            services.AddScoped<SmtpClient>(Options=> {
+                SmtpClient smtp = new SmtpClient()
+                {
+                    Host = Configuration.GetValue<string>("Email:ServerSMTP"),
+                    Port = Configuration.GetValue<int>("Email:ServerPort"),
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(Configuration.GetValue<string>("Email:UserName"), Configuration.GetValue<string>("Email:PassWord")),
+                    EnableSsl = true
+
+                };
+                return smtp;
+            });
+            services.AddScoped<GerenciarEmail>();
+          
+
+
+            
 
             //Session configuração
             services.AddMemoryCache();//guardar os dados na memória
-            services.AddSession(options => {              
+            services.AddSession(options =>
+            {
             });
             services.AddScoped<Sessao>();
             services.AddScoped<LoginCliente>();
+            services.AddScoped<LoginColaborador>();
 
             services.AddControllersWithViews();
             string connection = @"Data Source=DESKTOP-TDL5LR3\SQLEXPRESS;Initial Catalog=LojaVirtual;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-           services.AddDbContext<LojaVirtualContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<LojaVirtualContext>(options => options.UseSqlServer(connection));
 
         }
 
@@ -70,9 +97,17 @@ namespace LojaVirtual
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                     "areas", "colaborador", "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                      );
+
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                   name: "default",
+                   pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
             });
         }
     }

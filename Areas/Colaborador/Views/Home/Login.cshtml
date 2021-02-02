@@ -1,17 +1,17 @@
-﻿@model Cliente
+﻿@model LojaVirtual.Models.Colaborador
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Login";
 }
-
 
 <main role="main">
     <br />
     <br />
     <section class="container">
-        <aside class="col-sm-4">
+        <aside class="col-sm-6">
             <h3 class="subtitle-doc">
-                Login
-               
+                Login do Colaborador
+
             </h3>
             <div id="code_login_1">
                 <div class="card">
@@ -20,7 +20,7 @@
                         {
                             <p class="alert alert-danger">@Html.Raw(ViewData["MSG_E1"])</p>
                         }
-                        <a asp-controller="Home" asp-action="CadastroUsuario"  class="float-right btn btn-outline-primary">Cadastre-se</a>
+                        
                         <h4 class="card-title mb-4 mt-1">Entrar</h4>
                         <form method="post">
                             <div class="form-group">
@@ -37,8 +37,8 @@
                             </div>
                         </form>
                     </article>
-                </div> 
-            </div> 
+                </div>
+            </div>
         </aside>
     </section>
 
