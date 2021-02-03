@@ -8,6 +8,7 @@ using LojaVirtual.DataBase;
 using X.PagedList;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using LojaVirtual.Models.Constantes;
 
 namespace LojaVirtual.Repositories
 {
@@ -72,7 +73,7 @@ namespace LojaVirtual.Repositories
         public IPagedList<Colaborador> FindAllColaborador(int? pagina)
         {
             int NumeroPagina = pagina ?? 1;
-            return _context.TAB_Colaboradores.Where(a => a.Tipo != "G").ToPagedList<Colaborador>(NumeroPagina, _conf.GetValue<int>("RegistroPorPagina"));
+            return _context.TAB_Colaboradores.Where(a => a.Tipo != ColaboradorTipoConstant.Gerente).ToPagedList<Colaborador>(NumeroPagina, _conf.GetValue<int>("RegistroPorPagina"));
         }
 
         public List<Colaborador> ObterColaboradorEmail(string email)

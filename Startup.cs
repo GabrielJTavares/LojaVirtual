@@ -17,6 +17,7 @@ using LojaVirtual.Libraries.Login;
 using System.Net.Mail;
 using System.Net;
 using LojaVirtual.Libraries.Email;
+using LojaVirtual.Libraries.Middleware;
 
 namespace LojaVirtual
 {
@@ -92,6 +93,7 @@ namespace LojaVirtual
             app.UseCookiePolicy();
             app.UseSession();
             app.UseRouting();
+            app.UseMiddleware<ValidateAntiForgeryTokenMiddleware>();
 
             app.UseAuthorization();
 

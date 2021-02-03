@@ -29,6 +29,7 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
             return View();
         }
         [HttpPost]
+        
         public IActionResult Login([FromForm]Models.Colaborador colaborador)
         {
             Models.Colaborador colaboradorDB = _colaboradorRepository.LoginColaborador(colaborador.Email, colaborador.Senha);
@@ -57,7 +58,8 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
         {
             return View();
         }
-        [ColaboradorAutorizacaoAttribute]
+        [ColaboradorAutorizacao]
+        [ValidateHttpReferer]
         public IActionResult Logout()
         {
             _loginColaborador.Logout();

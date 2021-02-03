@@ -116,6 +116,7 @@ namespace LojaVirtual.Controllers
             return View();
         }
         [HttpPost]
+     
         public IActionResult Login([FromForm] Cliente cliente)
         {
             Cliente clienteDB = _ClienteRepository.LoginClient(cliente.Email, cliente.Senha);
