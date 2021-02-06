@@ -5,21 +5,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LojaVirtual.Repositories.Interfaces;
+using X.PagedList;
+using Microsoft.Extensions.Configuration;
 
 namespace LojaVirtual.Repositories
 {
     public class ClienteRepository : IClienteRepository
     {
+        private IConfiguration _conf;
         private LojaVirtualContext _context;
-        public ClienteRepository(LojaVirtualContext context)
+        public ClienteRepository(LojaVirtualContext context, IConfiguration configuration)
         {
             _context = context;
+            _conf = configuration;
         }
 
 
-        public IEnumerable<Cliente> FindAllClient()
+        public IPagedList<Cliente>FindAllClient(int? pagina, string pesquisa)
         {
-            return _context.TAB_Clientes.ToList(); 
+            int NumeroPagina = pagina ?? 1;
+
+            var bancoCliente = _context.TAB_Clientes.AsQueryable();
+            if (!string.IsNullOrEmpty(pesquisa))
+            {
+                bancoCliente = bancoCliente.Where(a => a.Nome.Contains(pesquisa.ToUpper().Trim()) || a.Email.Contains(pesquisa.ToUpper().Trim()));
+            }
+            return bancoCliente.ToPagedList<Cliente>(NumeroPagina, _conf.GetValue<int>("RegistroPorPagina")); 
         }
 
         public Cliente FindClientById(int id)

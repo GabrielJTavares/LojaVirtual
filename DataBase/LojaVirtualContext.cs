@@ -17,6 +17,9 @@ namespace LojaVirtual.DataBase
         public DbSet<Colaborador> TAB_Colaboradores { get; set; }
         public DbSet<Categoria> TAB_categorias { get; set; }
 
+        public DbSet<Produto> TAB_Produto { get; set; }
+        public DbSet<Imagem> TAB_Imagens { get; set; }
+
 
     }
 }

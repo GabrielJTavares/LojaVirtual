@@ -16,6 +16,8 @@
     <!-- Bootstrap core CSS -->
     <link href="~/resources/lib/bootstrap-4.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="~/Css/StyleSheet.css" rel="stylesheet" type="text/css">
+
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -81,7 +83,7 @@
                                 Categorias
                             </a>
                         </li>
-                        @if (colaborador.GetColaborador().Tipo == "G")
+                        @if (colaborador.GetColaborador() != null && colaborador.GetColaborador().Tipo == ColaboradorTipoConstant.Gerente)
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Colaborador" asp-action="Index">
@@ -98,9 +100,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">
                                 <span data-feather="users"></span>
-                                clientes
+                                Clientes
                             </a>
                         </li>
                         <li class="nav-item">
@@ -169,6 +171,7 @@
     <script src="~/resources/lib/feather/feather.js"></script>
     <script src="~/resources/lib/charts/charts.js"></script>
     <script src="~/resources/lib/dashboard/dashboard.js"></script>
+    <script src="~/resources/lib/Mask/jquery.mask.min.js"></script>
 </body>
 </html>
 
