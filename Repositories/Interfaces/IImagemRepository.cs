@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace LojaVirtual.Repositories.Interfaces
 {
-    interface IImagemRepository
+    public interface IImagemRepository
     {
         void CreateImage(Imagem imagem);       
 
         void RemoveImage(int id);
         void DeleteAllImages(int IdProduto);
+        void CreateImageProduto(List<Imagem> imagem, int produtoId);
 
-       
+
+
     }
 }

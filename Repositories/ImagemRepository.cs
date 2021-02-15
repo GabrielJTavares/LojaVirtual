@@ -18,6 +18,19 @@ namespace LojaVirtual.Repositories
             _context = context;
 
         }
+        public void CreateImageProduto(List<Imagem> imagem,int produtoId )
+        {
+            if (imagem != null && imagem.Count>0)
+            {
+
+                foreach (var CaminhoDef in imagem)
+                {
+
+                    CreateImage(CaminhoDef);
+                }
+            }
+           
+        }
         public void CreateImage(Imagem imagem)
         {
             _context.TAB_Imagens.Add(imagem);

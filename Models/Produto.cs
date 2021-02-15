@@ -10,7 +10,7 @@ namespace LojaVirtual.Models
 {
     public class Produto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         public string Nome { get; set; }
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
@@ -18,33 +18,33 @@ namespace LojaVirtual.Models
         public string Descricao { get; set; }
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Display(Name = "Preço")]
-        public decimal Valor { get; set; }
+        public decimal? Valor { get; set; }
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Range(0,100000, ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E006")]
-        public int Quantidade { get; set; }
+        public int? Quantidade { get; set; }
 
         // Frete Correios
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Range(0.001, 30, ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E006")]
-        public double Peso { get; set; }
+        public double? Peso { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Range(11, 105, ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E006")]
-        public double Largura { get; set; }
+        public double? Largura { get; set; }
 
         
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Range(2, 105, ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E006")]
-        public double Altura { get; set; }
+        public double? Altura { get; set; }
 
         
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Range(16, 105, ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E006")]
-        public double Comprimento { get; set; }
+        public double? Comprimento { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Display(Name = "Categoria")]
-        public int CategoriaId { get; set; }
+        public int? CategoriaId { get; set; }
 
         [ForeignKey("CategoriaId")]
         public virtual Categoria Categoria { get; set; }
