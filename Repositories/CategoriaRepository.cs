@@ -38,6 +38,40 @@ namespace LojaVirtual.Repositories
             return _context.TAB_categorias.Find(Id);
         }
 
+        public Categoria FindCategoryById(string slug)
+        {
+            return _context.TAB_categorias.Where(a => a.Slug == slug).FirstOrDefault();
+        }
+
+        private List<Categoria> categorias;
+        
+        private List<Categoria> ListaCategoriaRecursiva = new List<Categoria>();
+        public IEnumerable<Categoria> ObterCategoriaRecursiva(Categoria categoriaPai)
+        {
+            if(categorias == null)
+            {
+                categorias = FindAllCategoria().ToList();
+            }
+           
+            if (!ListaCategoriaRecursiva.Exists(a => a.Id == categoriaPai.Id))
+            {
+                ListaCategoriaRecursiva.Add(categoriaPai);
+            }
+
+            var listaCategoriaFilho = categorias.Where(a => a.CartegoriaPaiId == categoriaPai.Id);
+            if (listaCategoriaFilho.Count() > 0)
+            {
+                ListaCategoriaRecursiva.AddRange(listaCategoriaFilho.ToList());
+                foreach (var categoria in listaCategoriaFilho)
+                {
+                    ObterCategoriaRecursiva(categoria);
+                }
+            }
+            return ListaCategoriaRecursiva;
+        }
+       
+     
+
         public void RegisterRegistrar(Categoria categoria)
         {
             _context.TAB_categorias.Add(categoria);

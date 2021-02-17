@@ -13,6 +13,7 @@ using LojaVirtual.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using LojaVirtual.Libraries.Login;
 using LojaVirtual.Libraries.Filtro;
+using LojaVirtual.Models.ViewModel;
 
 namespace LojaVirtual.Controllers
 {
@@ -22,13 +23,15 @@ namespace LojaVirtual.Controllers
         private INewsletterRepository _newsletterRepository;
         private LoginCliente _loginCliente;
         private GerenciarEmail _gerenciarEmail;
+        private IProdutoRepository _produtoRepository { get; set; }
 
-        public HomeController(IClienteRepository repository,INewsletterRepository newletter, LoginCliente logincliente,GerenciarEmail gerenciarEmail)
+        public HomeController(IProdutoRepository produtoRepository,IClienteRepository repository,INewsletterRepository newletter, LoginCliente logincliente,GerenciarEmail gerenciarEmail)
         {
             _ClienteRepository = repository;
             _newsletterRepository = newletter;
             _loginCliente = logincliente;
             _gerenciarEmail = gerenciarEmail;
+            _produtoRepository = produtoRepository;
 
 
         }
@@ -36,6 +39,7 @@ namespace LojaVirtual.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+          
             return View();
         }
         [HttpPost]
@@ -62,6 +66,11 @@ namespace LojaVirtual.Controllers
                 return View();
             }
            
+        }
+
+        public IActionResult Categoria()
+        {
+            return View();
         }
 
         public IActionResult Contato()

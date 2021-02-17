@@ -10,7 +10,7 @@ namespace LojaVirtual.Models
 {
     public class Produto
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         public string Nome { get; set; }
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
@@ -18,7 +18,7 @@ namespace LojaVirtual.Models
         public string Descricao { get; set; }
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Display(Name = "Preço")]
-        public decimal? Valor { get; set; }
+        public decimal Valor { get; set; }
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Range(0,100000, ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E006")]
         public int? Quantidade { get; set; }
@@ -44,7 +44,7 @@ namespace LojaVirtual.Models
 
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [Display(Name = "Categoria")]
-        public int? CategoriaId { get; set; }
+        public int CategoriaId { get; set; }
 
         [ForeignKey("CategoriaId")]
         public virtual Categoria Categoria { get; set; }

@@ -18,6 +18,7 @@ namespace LojaVirtual.Repositories.Interfaces
         Produto FindByIdPro(int id);
   
         IPagedList<Produto> FindAllProduto(int? pagina, string pesquisa);
+        IPagedList<Produto> FindAllProduto(int? pagina, string pesquisa, string ordenacao,IEnumerable<Categoria> categorias);
  
 
     }
