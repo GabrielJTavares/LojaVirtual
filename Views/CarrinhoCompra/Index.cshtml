@@ -1,0 +1,152 @@
+﻿@model List<LojaVirtual.Models.ProdutoAgregador.ProdutoItem>
+@{
+    ViewData["Title"] = "Index";
+    decimal SubTotal=0;
+
+}
+
+<div class="container">
+    <section id="order">
+
+        <br />
+        <h2 class="title-doc">Carrinho de Compras</h2>
+        <div class="alert alert-danger" style="display:none;" role="alert">
+
+        </div>
+        <br />
+        <br />
+
+
+        <div id="code_cart">
+            <div class="card">
+                <table class="table table-hover shopping-cart-wrap">
+                    <thead class="text-muted">
+                        <tr>
+                            <th scope="col">Produto</th>
+                            <th scope="col" width="120">Quantidade</th>
+                            <th scope="col" width="120">Preço</th>
+                            <th scope="col" width="200" class="text-right">Ação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <figure class="media">
+                                        <div class="img-wrap"><img src="images/items/1.jpg" class="img-thumbnail img-sm"></div>
+                                        <figcaption class="media-body">
+                                            <h6 class="title text-truncate">@item.Nome </h6>
+                                            <dl class="dlist-inline small">
+                                                <dt>Size: </dt>
+                                                <dd>XXL</dd>
+                                            </dl>
+                                            <dl class="dlist-inline small">
+                                                <dt>Quantidade: </dt>
+                                                <dd>@item.Quantidade</dd>
+                                            </dl>
+                                        </figcaption>
+                                    </figure>
+                                </td>
+                                <td>
+                                    
+                                    <div class="col-auto">
+                                        <div class="input-group mb-2">
+                                            <input type="hidden" value="@item.Id" class="inputProdutoId" />
+                                            <input type="hidden" value="@item.Quantidade" class="inputQuantidadeEstoque" />
+                                            <input type="hidden" value="@item.Valor" class="inputValorUnid" />
+                                            <div class="input-group-prepend">
+                                                <a href="#" class="btn btn-secondary diminuir">-</a>
+                                            </div>
+                                            <input type="text" style="width:60px; text-align:center;" readonly="readonly" class="form-control inputQuantidadeProdutoCarrinho" value="@item.QuantidadeProdutoCarrinho" />
+
+                                            <div class="input-group-append">
+                                                <a href="#" class="btn btn-secondary aumentar">+</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </td>
+                                @{ 
+                                    var ResultadoSubTotalItem = item.Valor * item.QuantidadeProdutoCarrinho;
+                                    SubTotal += ResultadoSubTotalItem;
+                                }
+                                <td>
+                                    <div class="price-wrap">
+                                        <var class="price">@(ResultadoSubTotalItem.ToString("C"))</var>
+                                        <small class="text-muted">(@item.Valor.ToString("C") cada)</small>
+                                    </div> <!-- price-wrap .// -->
+                                </td>
+                                <td class="text-right">
+                                    <a asp-controller="CarrinhoCompra" asp-action="RemoverItem" asp-route-id="@item.Id" class="btn btn-outline-danger"> &times Remove</a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div> <!-- card.// -->
+        </div> <!-- code-wrap.// -->
+    </section>
+
+    <section id="parameters">
+        <h2 class="title-doc"># Description lists</h2>
+        <div class="row">
+
+            <aside class="col-md-4">
+                <h4 class="subtitle-doc">
+                    Frete
+
+                </h4>
+                <div id="code_desc_align">
+                    <div class="box">
+                        <dl class="dlist-align">
+                            <dt>CEP: </dt>
+                            <dd> <input type="text" name="cep" class="form-control" /> </dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt><input type="radio" name="frete" value="sedex" /> </dt>
+                            <dd>SEDEX - R$ 69,69</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt><input type="radio" name="frete" value="pac" /> </dt>
+                            <dd>PAC - R$ 55,69</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Material:</dt>
+                            <dd>Leather</dd>
+                        </dl>
+                    </div> <!-- box.// -->
+                </div> <!-- code-wrap.// -->
+            </aside>
+            <aside class="col-md-4">
+                <h4 class="subtitle-doc">
+                    Resumo
+                    <a href="#" data-html="code_desc_right" class="showcode">[code]</a>
+                </h4>
+                <div id="code_desc_right">
+                    <div class="box">
+                        <dl class="dlist-align">
+                            <dt>Subtotal: </dt>
+                            <dd class="text-right subtotal">@SubTotal.ToString("C")</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Frete:</dt>
+                            <dd class="text-right">R$ 69,69</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Total:</dt>
+                            <dd class="text-right">189,69</dd>
+                        </dl>
+
+                    </div> <!-- box.// -->
+                </div> <!-- code-wrap.// -->
+            </aside>
+        </div> <!-- row.// -->
+
+
+    </section>
+</div>
+

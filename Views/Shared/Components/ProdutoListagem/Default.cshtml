@@ -36,7 +36,7 @@
 
                             </figcaption>
                             <div class="bottom-wrap">
-                                <a href="" class="btn btn-sm btn-primary float-right">+ Carrinho</a>
+                                <a asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-id="@Produto.Id" class="btn btn-sm btn-primary float-right">+ Carrinho</a>
                                 <div class="price-wrap h5">
                                     <span class="price-new">@Produto.Valor.ToString("C")</span>
                                 </div> <!-- price-wrap.// -->

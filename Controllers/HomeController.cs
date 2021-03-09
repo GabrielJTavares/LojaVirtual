@@ -120,6 +120,7 @@ namespace LojaVirtual.Controllers
             }
 
         [HttpGet]
+        [Route("/Home/Login")]
         public IActionResult Login()
         {
             return View();
@@ -180,9 +181,6 @@ namespace LojaVirtual.Controllers
 
         }
 
-        public IActionResult CarrinhoCompra()
-        {
-            return View();
-        }
+      
     }
 }

@@ -24,6 +24,7 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
 
 
         [HttpGet]
+        [Route("/Colaborador/Home/Login")]
         public IActionResult Login()
         {
             return View();

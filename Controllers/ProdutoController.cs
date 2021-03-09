@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LojaVirtual.Models;
 using LojaVirtual.Repositories.Interfaces;
+using LojaVirtual.Models.ProdutoAgregador;
 
 namespace LojaVirtual.Controllers
 {

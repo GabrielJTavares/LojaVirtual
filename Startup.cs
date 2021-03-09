@@ -18,6 +18,11 @@ using System.Net.Mail;
 using System.Net;
 using LojaVirtual.Libraries.Email;
 using LojaVirtual.Libraries.Middleware;
+using LojaVirtual.Libraries.CarrinhoCompra;
+using AutoMapper;
+using LojaVirtual.Libraries.AutoMapper;
+using LojaVirtual.Libraries.Gerenciador.Frete;
+using WSCorreios;
 
 namespace LojaVirtual
 {
@@ -33,6 +38,11 @@ namespace LojaVirtual
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var config = new MapperConfiguration(cfg => { cfg.AddProfile(new MappingProfile()); });
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
+
             services.AddHttpContextAccessor();
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
@@ -40,7 +50,7 @@ namespace LojaVirtual
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IImagemRepository, ImagemRepository>();
-
+           
 
             //SMTP
             services.AddScoped<SmtpClient>(Options=> {
@@ -55,11 +65,18 @@ namespace LojaVirtual
                 };
                 return smtp;
             });
+            services.AddScoped<CalcPrecoPrazoWSSoap>(options => {
+                var servico = new CalcPrecoPrazoWSSoapClient(CalcPrecoPrazoWSSoapClient.EndpointConfiguration.CalcPrecoPrazoWSSoap);
+                return servico;
+            });
             services.AddScoped<GerenciarEmail>();
-          
+            services.AddScoped<LojaVirtual.Libraries.Cookie.Cookie>();
+            services.AddScoped<CarrinhoCompra>();
+            services.AddScoped<WSCorreiosCalcularFrete>();
 
 
-            
+
+
 
             //Session configuração
             services.AddMemoryCache();//guardar os dados na memória
@@ -67,6 +84,7 @@ namespace LojaVirtual
             {
             });
             services.AddScoped<Sessao>();
+            services.AddScoped<LojaVirtual.Libraries.Cookie.Cookie>();
             services.AddScoped<LoginCliente>();
             services.AddScoped<LoginColaborador>();
 
@@ -109,6 +127,8 @@ namespace LojaVirtual
 
                    name: "default",
                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                
 
 
 

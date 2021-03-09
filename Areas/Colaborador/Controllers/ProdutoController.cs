@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LojaVirtual.Libraries.Arquivo;
 using LojaVirtual.Libraries.Filtro;
+using LojaVirtual.Models.ProdutoAgregador;
 
 namespace LojaVirtual.Areas.Colaborador.Controllers
 {
